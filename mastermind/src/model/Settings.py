@@ -4,12 +4,16 @@ Created on 04.09.2014
 @author: proSingularity
 '''
 
-COLORS = {"blue": "blue",
-          "red": "red",
-          "yellow": "yellow",
-          "brown": "brown",
-          "green": "green",
-          "white": "white",
-          "orange": "orange",
-          "black": "black"
+COLORS = {
+          "black": 0,
+          "blue": 1,
+          "red": 2,
+          "yellow": 3,
+          "brown": 4,
+          "green": 5,
+          "white": 6,
+          "orange": 7,
           }
+
+# the number of stones per combination
+STONE_NUMBER = 5 

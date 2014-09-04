@@ -6,7 +6,7 @@ Created on 04.09.2014
 
 from model.Settings import COLORS as COLORS
 
-class KombiReader(object):
+class CombiReader(object):
     '''
     classdocs
     '''
@@ -20,8 +20,10 @@ class KombiReader(object):
         try:
             incoming_list = incoming.split()
             # consistency test
-            kombi = [COLORS[color] for color in incoming_list]
+            combi = [COLORS[color] for color in incoming_list]
+            return combi
+        except: KeyError("Non-valid value found.")
         finally:
             pass
-        return kombi
+        return None
             
