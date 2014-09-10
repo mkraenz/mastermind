@@ -36,9 +36,27 @@ class Evaluator(IWinManager, IManageable):
     def manage(self):
         if self.goal_code == None:
             self.goal_code = self.tuple_input.get_tuple()
-        code = self.player_codes.get_tuple()
+        code = self.player_codes.get_code()
         (w,s) = self.evaluate(code)
         self.eval_list.append((w,s))
+        print((w,s))
         
+    def evaluate(self, code):
+        goal_code_deletable = self.goal_code[:]
+        right_pos_and_color = 0
+        right_color = 0
+        
+        for i in xrange(len(self.goal_code)):
+            if code[i] == self.goal_code[i]:
+                right_pos_and_color += 1
+            
+            for j in xrange(len(goal_code_deletable)):
+                if code[i] == goal_code_deletable[j]:
+                    right_color += 1
+                    del goal_code_deletable[j]
+                    break
+                
+                
+        return (right_pos_and_color, right_color - right_pos_and_color)
         
         

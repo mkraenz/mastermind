@@ -22,5 +22,9 @@ class GameManager(object):
             self.evaluator.manage()
             if self.evaluator.is_won():
                 print("CONGRATULATIONS!")
+                break
+            
+            # TODO: might be unneccessary
             elif self.evaluator.is_lost():
                 print("Too Bad....")
+                break

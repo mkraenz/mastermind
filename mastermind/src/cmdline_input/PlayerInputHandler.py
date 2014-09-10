@@ -22,7 +22,7 @@ class PlayerInputHandler(ITupleInput, IManageable):
     def manage(self):
         ''' ask for a new input tuple, until it fulfills the conditions defined in the Settings '''
         while True:
-            incoming = raw_input("Please insert your combination, e.g. 'red blue yellow pink blue':\n")
+            incoming = raw_input("Please insert your combination, e.g. 'red blue yellow white blue':\n")
             try:
                 incoming_list = incoming.split()
                 # consistency test

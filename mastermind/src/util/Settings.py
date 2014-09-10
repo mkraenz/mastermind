@@ -6,11 +6,11 @@ Created on 04.09.2014
 
 COLORS = {
           "black": 0,
-          "blue": 1,
-          "red": 2,
-          "yellow": 3,
+          "b": 1,
+          "r": 2,
+          "y": 3,
           "brown": 4,
-          "green": 5,
+          "g": 5,
           "white": 6,
           "orange": 7,
           }
