@@ -4,7 +4,7 @@ Created on 04.09.2014
 @author: proSingularity
 '''
 
-from model.Settings import COLORS as COLORS, STONE_NUMBER
+from util.Settings import COLORS as COLORS, STONE_NUMBER
 from cmdline_input.ITupleInput import ITupleInput
 from util.IManageable import IManageable
 
@@ -13,7 +13,8 @@ class PlayerInputHandler(ITupleInput, IManageable):
     classdocs
     '''
 
-    tuple = None
+    def __init__(self):
+        self.tuple = None
 
     def get_tuple(self):
         return self.tuple
@@ -32,4 +33,3 @@ class PlayerInputHandler(ITupleInput, IManageable):
             except: KeyError("Non-valid value found.")
             finally:
                 pass
-        return

@@ -5,16 +5,15 @@ Created on 10.09.2014
 '''
 from util.IManageable import IManageable
 from cmdline_input.ITupleInput import ITupleInput
-from model.Settings import COLORS, STONE_NUMBER
+from util.Settings import COLORS, STONE_NUMBER
 
 class GoalInputHandler(IManageable, ITupleInput):
     '''
     classdocs
     '''
-
-    tuple = None
     
-
+    def __init__(self):
+        self.tuple = None
 
     def get_tuple(self):
         return self.tuple
@@ -33,4 +32,3 @@ class GoalInputHandler(IManageable, ITupleInput):
             except: KeyError("Non-valid value found.")
             finally:
                 pass
-        return
