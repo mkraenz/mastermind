@@ -6,13 +6,12 @@ Created on 04.09.2014
 
 COLORS = {
           "black": 0,
-          "b": 1,
-          "r": 2,
-          "y": 3,
+          "blue": 1,
+          "red": 2,
+          "yellow": 3,
           "brown": 4,
-          "g": 5,
-          "white": 6,
-          "orange": 7,
+          "green": 5,
+          "orange": 6,
           }
 
 # the number of stones per combination
