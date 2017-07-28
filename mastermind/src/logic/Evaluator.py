@@ -6,12 +6,13 @@ Created on 10.09.2014
 from logic.IWinManager import IWinManager
 from util.IManageable import IManageable
 from util.Settings import STONE_NUMBER, ROUND_NUMBER
+from logic import IResettable
+
 
 class Evaluator(IWinManager, IManageable):
     '''
     classdocs
     '''
-    
     
     def __init__(self, tuple_input, player_codes):
         '''
@@ -20,7 +21,12 @@ class Evaluator(IWinManager, IManageable):
         self.tuple_input = tuple_input
         self.player_codes = player_codes
         self.goal_code = None
-        # eval_list contains tuples (w,s) with w pointers for correct, and s pointers for right color but wrong place
+        # eval_list contains tuples (w,s) with w pointers for correct, and s pointers for right color 
+        # but wrong place
+        self.eval_list = []
+        
+    def reset(self):
+        self.goal_code = None
         self.eval_list = []
         
     def is_won(self):
@@ -37,9 +43,9 @@ class Evaluator(IWinManager, IManageable):
         if self.goal_code == None:
             self.goal_code = self.tuple_input.get_tuple()
         code = self.player_codes.get_code()
-        (w,s) = self.evaluate(code)
-        self.eval_list.append((w,s))
-        print((w,s))
+        (w, s) = self.evaluate(code)
+        self.eval_list.append((w, s))
+        print('%s correct stones. %s in wrong position.') % (w, s)
         
     def evaluate(self, code):
         goal_code_deletable = self.goal_code[:]

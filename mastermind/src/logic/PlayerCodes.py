@@ -5,7 +5,6 @@ Created on 10.09.2014
 '''
 from logic.IPlayerCode import IPlayerCode
 from util.IManageable import IManageable
-from abc import abstractmethod
 
 class PlayerCodes(IPlayerCode, IManageable):
 
@@ -20,5 +19,4 @@ class PlayerCodes(IPlayerCode, IManageable):
         return self.codelist[-1]
     
     def manage(self):
-        tuple = self.tuple_input.get_tuple()
-        self.codelist.append(tuple)
+        self.codelist.append(self.tuple_input.get_tuple())

@@ -30,5 +30,3 @@ class GoalInputHandler(IManageable, ITupleInput):
                     self.tuple = combi
                     break
             except: KeyError("Non-valid value found.")
-            finally:
-                pass

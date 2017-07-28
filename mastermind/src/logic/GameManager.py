@@ -16,15 +16,25 @@ class GameManager(object):
     def start_game(self):
         self.goal_input_handler.manage()
         
-        for i in xrange(ROUND_NUMBER):
+        for _ in xrange(ROUND_NUMBER):
             self.player_input_handler.manage()
             self.player_codes.manage()
             self.evaluator.manage()
             if self.evaluator.is_won():
                 print("CONGRATULATIONS!")
-                break
-            
+                raw_input("Press Return key to start new game.")
+                self.start_new_game()
+                        
             # TODO: might be unneccessary
             elif self.evaluator.is_lost():
                 print("Too Bad....")
+                raw_input("Press Return key to start new game.")
+                self.start_new_game()
                 break
+
+    def start_new_game(self):
+        self.clear_gamestate()
+        self.start_game()
+        
+    def clear_gamestate(self):
+        self.evaluator.reset()
