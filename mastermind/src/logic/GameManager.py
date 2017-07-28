@@ -37,4 +37,4 @@ class GameManager(object):
         self.start_game()
         
     def clear_gamestate(self):
-        self.evaluator.clear()
+        self.evaluator.reset()
