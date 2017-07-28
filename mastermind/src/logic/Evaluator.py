@@ -44,9 +44,9 @@ class Evaluator(IWinManager, IManageable, IResettable):
         if self.goal_code == None:
             self.goal_code = self.tuple_input.get_tuple()
         code = self.player_codes.get_code()
-        (w,s) = self.evaluate(code)
-        self.eval_list.append((w,s))
-        print('%s correct stones. %s in wrong position.') % (w,s)
+        (w, s) = self.evaluate(code)
+        self.eval_list.append((w, s))
+        print('%s correct stones. %s in wrong position.') % (w, s)
         
     def evaluate(self, code):
         goal_code_deletable = self.goal_code[:]
