@@ -5,7 +5,6 @@ Created on 04.09.2014
 '''
 
 COLORS = {
-          "black": 0,
           "blue": 1,
           "red": 2,
           "yellow": 3,
