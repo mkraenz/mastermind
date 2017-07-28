@@ -20,6 +20,8 @@ class GoalInputHandler(IManageable, ITupleInput):
         return self.tuple
     
     def get_random_combination(self):
+        # if some numbers are switched of this does not make sense
+        # better use Settings.COLORS.values and randomly choose out of this collection
         return [randint(0, len(COLORS)) for _ in xrange(STONE_NUMBER)]
             
     def manage(self):
