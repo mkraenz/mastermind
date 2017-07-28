@@ -19,3 +19,7 @@ STONE_NUMBER = 3
 
 # number of rounds played
 ROUND_NUMBER = 10
+
+DEBUG_LEVEL = 2
+
+
