@@ -9,11 +9,10 @@ from util.Settings import STONE_NUMBER, ROUND_NUMBER
 from logic import IResettable
 
 
-class Evaluator(IWinManager, IManageable, IResettable):
+class Evaluator(IWinManager, IManageable):
     '''
     classdocs
     '''
-    
     
     def __init__(self, tuple_input, player_codes):
         '''
