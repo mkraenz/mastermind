@@ -22,9 +22,20 @@ class GameManager(object):
             self.evaluator.manage()
             if self.evaluator.is_won():
                 print("CONGRATULATIONS!")
-                break
-            
+                raw_input("Press Return key to start new game.")
+                self.start_new_game()
+                # TODO start new game
+                        
             # TODO: might be unneccessary
             elif self.evaluator.is_lost():
                 print("Too Bad....")
+                raw_input("Press Return key to start new game.")
+                self.start_new_game()
                 break
+
+    def start_new_game(self):
+        self.clear_gamestate()
+        self.start_game()
+        
+    def clear_gamestate(self):
+        self.evaluator.clear()
