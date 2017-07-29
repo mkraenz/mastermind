@@ -38,7 +38,7 @@ def handleMouseButtonUp(code_given_in_colors, color_choices_stones, current_row_
         if clicked_stones:
             clicked_stone = clicked_stones[0]
             if Settings.DEBUG_LEVEL >= 1:
-                print(clicked_stone, ViewSettings.RGB_TO_COLORS[clicked_stone.color])
+                print('clicked stone: ', clicked_stone, ViewSettings.RGB_TO_COLORS[clicked_stone.color])
             # TODO: color central stones in color of clicked_stone
             # current_row_of_sprites[len(code_given_in_colors)].set_color(clicked_stone.color)
             # pygame.display.update()
