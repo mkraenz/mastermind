@@ -8,12 +8,16 @@ from view import ViewSettings
 from view.IScene import IScene
 from view.ViewSettings import COLORS_TO_RGB
 from view.EncrypterScene import EncrypterScene
+from util import Settings
+
 class TitleScene(IScene):
 
     def __init__(self):
         super(TitleScene, self).__init__()
         self.font = pygame.font.SysFont('Arial', 50)
         self.sfont = pygame.font.SysFont('Arial', 32)
+        if Settings.DEBUG_LEVEL >= 1:
+            print('enter TitleScene')
 
     def render(self, surface):
         surface.fill(ViewSettings.COLORS_TO_RGB['white'])

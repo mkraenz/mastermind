@@ -19,7 +19,8 @@ class EncrypterScene(IScene):
         self.color_choices_stones = color_choices_stones
         self.current_row_of_sprites = current_row_of_sprites
         self.code_given_in_colors = code_given_in_colors
-        print('start EncrypterScene')
+        if Settings.DEBUG_LEVEL >= 1:
+            print('enter EncrypterScene')
 
     def render(self, surface):
         surface.fill(COLORS_TO_RGB['white'])
