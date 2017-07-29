@@ -7,7 +7,7 @@ class IScene(object):
     def __init__(self):
         pass
 
-    def render(self, screen):
+    def render(self, surface):
         raise NotImplementedError
 
     def update(self):
