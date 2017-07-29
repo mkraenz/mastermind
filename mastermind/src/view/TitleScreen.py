@@ -22,7 +22,7 @@ class TitleScene(IScene):
     def render(self, surface):
         surface.fill(ViewSettings.COLORS_TO_RGB['white'])
         text1 = self.font.render('Are you the Mastermind?', True, COLORS_TO_RGB['black'])
-        text2 = self.font.render('Hit Return to Start', True, COLORS_TO_RGB['black'])
+        text2 = self.font.render('Press Return to Start', True, COLORS_TO_RGB['black'])
         surface.blit(text1, (200, 50))
         surface.blit(text2, (200, 350))
 
