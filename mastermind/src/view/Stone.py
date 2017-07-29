@@ -18,6 +18,9 @@ class Stone(pygame.sprite.Sprite):
         # Update the position of this object by setting the values of rect.x and rect.y
         self.rect = self.image.get_rect(center=(posX + block_size / 2, posY + block_size / 2))
         
+    def render(self, surface):
+        self.rect = pygame.draw.rect(surface, self.color, self.rect)
+        
     def set_color(self, color):
         self.color = color
         self.image.fill(color)

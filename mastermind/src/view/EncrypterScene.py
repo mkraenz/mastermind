@@ -25,6 +25,8 @@ class EncrypterScene(IScene):
         surface.fill(COLORS_TO_RGB['white'])
         self.drawColorChoices(surface, self.color_choices_stones)
         self.drawRowOfStones(surface, self.current_row_of_sprites)
+#         for stone in self.current_row_of_sprites:
+#             stone.render(surface)
 
     def update(self):
         pass
@@ -34,7 +36,6 @@ class EncrypterScene(IScene):
             if event.type == pygame.MOUSEBUTTONUP:
                 self.handleMouseButtonUp(self.code_given_in_colors, self.color_choices_stones, 
                                         self.current_row_of_sprites)
-                pass
 
 
     def handleMouseButtonUp(self, code_given_in_colors, color_choices_stones, current_row_of_sprites):
@@ -44,14 +45,15 @@ class EncrypterScene(IScene):
             if clicked_stones:
                 clicked_stone = clicked_stones[0]
                 if Settings.DEBUG_LEVEL >= 1:
-                    print('clicked stone: ', clicked_stone, ViewSettings.RGB_TO_COLORS[clicked_stone.color])
+                    print('clicked colored stone: ' + 
+                          str((clicked_stone, ViewSettings.RGB_TO_COLORS[clicked_stone.color])))
                 # TODO: color central stones in color of clicked_stone
                 # current_row_of_sprites[len(code_given_in_colors)].set_color(clicked_stone.color)
                 # pygame.display.update()
                 
                 code_given_in_colors.append(ViewSettings.RGB_TO_COLORS[clicked_stone.color])
                 if Settings.DEBUG_LEVEL >= 1:
-                    print('code_given_in_colors = ', code_given_in_colors)
+                    print('code_given_in_colors = ' + str(code_given_in_colors))
                 
         elif True:
             pass  # TODO:
