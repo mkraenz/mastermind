@@ -6,14 +6,14 @@ Created on 28.07.2017
 
 import pygame
 from util import Settings
-from ViewSettings import COLORS_IN_RGB
+from ViewSettings import COLORS_TO_RGB
 from ViewSettings import BLOCK_SIZE as block_size
 from view import ViewSettings
 
 def drawColorChoices(surface, color_choices_stones):
     counter = 1
     for color in Settings.COLORS:
-        stone = Stone(COLORS_IN_RGB[color], block_size, block_size,
+        stone = Stone(COLORS_TO_RGB[color], block_size, block_size,
                       surface.get_width() / (len(Settings.COLORS) + 1) * counter - block_size / 2,
                       surface.get_height() * 0.8)
         surface.blit(stone.image,
@@ -24,7 +24,7 @@ def drawColorChoices(surface, color_choices_stones):
 
 def drawRowOfStones(surface, current_row_of_sprites):
     for i in xrange(Settings.STONE_NUMBER):
-        stone = Stone(COLORS_IN_RGB['black'],
+        stone = Stone(COLORS_TO_RGB['black'],
             block_size, block_size)
         surface.blit(stone.image,
             (surface.get_width() / (Settings.STONE_NUMBER + 1) * (i + 1) - block_size / 2,
@@ -38,7 +38,7 @@ def handleMouseButtonUp(index_of_block_to_color, color_choices_stones, current_r
         if clicked_stones:
             clicked_stone = clicked_stones[0]
             if Settings.DEBUG_LEVEL >= 1:
-                print(clicked_stone)
+                print(clicked_stone, ViewSettings.RGB_TO_COLORS[clicked_stone.color])
             # TODO: color central stones in color of clicked_stone
             current_row_of_sprites[index_of_block_to_color].set_color(clicked_stone.color)
             pygame.display.update()
@@ -66,7 +66,7 @@ class Stone(pygame.sprite.Sprite):
 pygame.init()
 
 surface = pygame.display.set_mode(ViewSettings.SCREEN_DIMENSIONS)
-surface.fill(COLORS_IN_RGB['white'])
+surface.fill(COLORS_TO_RGB['white'])
 
 color_choices_stones = []
 current_row_of_sprites = []

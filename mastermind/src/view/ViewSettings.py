@@ -3,7 +3,7 @@ Created on 28.07.2017
 
 @author: Mirco
 '''
-COLORS_IN_RGB = {'black': (0, 0, 0),
+COLORS_TO_RGB = {'black': (0, 0, 0),
                  'blue': (0,0,255),
                  'red': (255, 0, 0),
                  'yellow': (255,255,0),
@@ -12,6 +12,8 @@ COLORS_IN_RGB = {'black': (0, 0, 0),
                  'white': (255, 255, 255),
                  'orange': (255,140,0),
                  }
+
+RGB_TO_COLORS  = {v: k for k, v in COLORS_TO_RGB.iteritems()}
 
 SCREEN_DIMENSIONS = (800, 600)
 BLOCK_SIZE = 45 # dimensions of buttons below to choose colors from
