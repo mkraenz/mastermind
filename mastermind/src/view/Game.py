@@ -9,12 +9,8 @@ from util import Settings
 from ViewSettings import COLORS_IN_RGB
 from ViewSettings import BLOCK_SIZE as block_size
 from view import ViewSettings
-from cmath import rect
 
-color_choices_stones = []
-current_row_of_sprites = []
-
-def drawColorChoices(surface):
+def drawColorChoices(surface, color_choices_stones):
     counter = 1
     for color in Settings.COLORS:
         stone = Stone(COLORS_IN_RGB[color], block_size, block_size,
@@ -26,7 +22,7 @@ def drawColorChoices(surface):
         color_choices_stones.append(stone)
         counter += 1
 
-def drawRowOfStones(surface):
+def drawRowOfStones(surface, current_row_of_sprites):
     for i in xrange(Settings.STONE_NUMBER):
         stone = Stone(COLORS_IN_RGB['black'],
             block_size, block_size)
@@ -35,14 +31,19 @@ def drawRowOfStones(surface):
             surface.get_height() * 0.4))
         current_row_of_sprites.append(stone)
 
-def handleMouseButtonUp(index_of_block_to_color):
-    pos = pygame.mouse.get_pos()
-    clicked_stones = [s for s in color_choices_stones if s.rect.collidepoint(pos)]
-    if clicked_stones:
-        clicked_stone = clicked_stones[0]
-        if Settings.DEBUG_LEVEL >= 1:
-            print(clicked_stone)
-#         current_row_of_sprites[index_of_block_to_color]
+def handleMouseButtonUp(index_of_block_to_color, color_choices_stones, current_row_of_sprites):
+    if len(code_given_in_colors) < Settings.STONE_NUMBER:
+        pos = pygame.mouse.get_pos()
+        clicked_stones = [s for s in color_choices_stones if s.rect.collidepoint(pos)]
+        if clicked_stones:
+            clicked_stone = clicked_stones[0]
+            if Settings.DEBUG_LEVEL >= 1:
+                print(clicked_stone)
+            # TODO: color central stones in color of clicked_stone
+            current_row_of_sprites[index_of_block_to_color].set_color(clicked_stone.color)
+            pygame.display.update()
+    elif True:
+        pass  # TODO:
         
 class Stone(pygame.sprite.Sprite):
     
@@ -50,18 +51,29 @@ class Stone(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface([width, height])
         self.image.fill(color)
+        self.color = color
         
         # Fetch the rectangle object that has the dimensions of the image
         # Update the position of this object by setting the values of rect.x and rect.y
-        self.rect = self.image.get_rect(center=(posX + block_size/2, posY + block_size/2))
+        self.rect = self.image.get_rect(center=(posX + block_size / 2, posY + block_size / 2))
+        
+    def set_color(self, color):
+        self.color = color
+        self.image.fill(color)
+        
 
 # main
 pygame.init()
 
 surface = pygame.display.set_mode(ViewSettings.SCREEN_DIMENSIONS)
 surface.fill(COLORS_IN_RGB['white'])
-drawColorChoices(surface)
-drawRowOfStones(surface)
+
+color_choices_stones = []
+current_row_of_sprites = []
+code_given_in_colors = []
+
+drawColorChoices(surface, color_choices_stones)
+drawRowOfStones(surface, current_row_of_sprites)
 
 gameExit = False
 index_of_block_to_color = 0
@@ -73,7 +85,7 @@ while not gameExit:
         if event.type == pygame.QUIT:
             gameExit = True
         elif event.type == pygame.MOUSEBUTTONUP:
-            handleMouseButtonUp(index_of_block_to_color)
+            handleMouseButtonUp(index_of_block_to_color, color_choices_stones, current_row_of_sprites)
             
         
     pygame.display.update()
