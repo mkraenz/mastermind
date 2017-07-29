@@ -31,7 +31,7 @@ def drawRowOfStones(surface, current_row_of_sprites):
             surface.get_height() * 0.4))
         current_row_of_sprites.append(stone)
 
-def handleMouseButtonUp(index_of_block_to_color, color_choices_stones, current_row_of_sprites):
+def handleMouseButtonUp(code_given_in_colors, color_choices_stones, current_row_of_sprites):
     if len(code_given_in_colors) < Settings.STONE_NUMBER:
         pos = pygame.mouse.get_pos()
         clicked_stones = [s for s in color_choices_stones if s.rect.collidepoint(pos)]
@@ -40,8 +40,13 @@ def handleMouseButtonUp(index_of_block_to_color, color_choices_stones, current_r
             if Settings.DEBUG_LEVEL >= 1:
                 print(clicked_stone, ViewSettings.RGB_TO_COLORS[clicked_stone.color])
             # TODO: color central stones in color of clicked_stone
-            current_row_of_sprites[index_of_block_to_color].set_color(clicked_stone.color)
-            pygame.display.update()
+            # current_row_of_sprites[len(code_given_in_colors)].set_color(clicked_stone.color)
+            # pygame.display.update()
+            
+            code_given_in_colors.append(ViewSettings.RGB_TO_COLORS[clicked_stone.color])
+            if Settings.DEBUG_LEVEL >= 1:
+                print('code_given_in_colors = ', code_given_in_colors)
+            
     elif True:
         pass  # TODO:
         
@@ -60,6 +65,7 @@ class Stone(pygame.sprite.Sprite):
     def set_color(self, color):
         self.color = color
         self.image.fill(color)
+        self.rect = self.image.get_rect()
         
 
 # main
@@ -67,6 +73,7 @@ pygame.init()
 
 surface = pygame.display.set_mode(ViewSettings.SCREEN_DIMENSIONS)
 surface.fill(COLORS_TO_RGB['white'])
+pygame.display.set_caption('Mastermind. App by ProSingularity.')
 
 color_choices_stones = []
 current_row_of_sprites = []
@@ -76,7 +83,6 @@ drawColorChoices(surface, color_choices_stones)
 drawRowOfStones(surface, current_row_of_sprites)
 
 gameExit = False
-index_of_block_to_color = 0
 
 while not gameExit:
     for event in pygame.event.get():
@@ -85,7 +91,7 @@ while not gameExit:
         if event.type == pygame.QUIT:
             gameExit = True
         elif event.type == pygame.MOUSEBUTTONUP:
-            handleMouseButtonUp(index_of_block_to_color, color_choices_stones, current_row_of_sprites)
+            handleMouseButtonUp(code_given_in_colors, color_choices_stones, current_row_of_sprites)
             
         
     pygame.display.update()
