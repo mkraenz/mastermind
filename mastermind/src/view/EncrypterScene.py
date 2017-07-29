@@ -25,27 +25,30 @@ class EncrypterScene(IScene):
             
     def render(self, surface):
         if not self.current_row_of_stones:
-            self.current_row_of_stones = [Stone(COLORS_TO_RGB['black'], BLOCK_SIZE, BLOCK_SIZE,
-                surface.get_width() / (Settings.STONE_NUMBER + 1) * (i + 1) - BLOCK_SIZE / 2,
-                surface.get_height() * 0.4) 
-                                            for i in xrange(Settings.STONE_NUMBER)]
+            self.current_row_of_stones = self._init_current_row_of_stones(surface)
         surface.fill(COLORS_TO_RGB['white'])
         self.drawColorChoices(surface, self.color_choices_stones)
         self.drawRowOfStones(surface, self.current_row_of_stones)
 #         for stone in self.current_row_of_stones:
 #             stone.render(surface)
 
+    def _init_current_row_of_stones(self, surface):
+        return [Stone(COLORS_TO_RGB['black'], BLOCK_SIZE, BLOCK_SIZE,
+                surface.get_width() / (Settings.STONE_NUMBER + 1) * (i + 1) - BLOCK_SIZE / 2,
+                surface.get_height() * 0.4) 
+                                            for i in xrange(Settings.STONE_NUMBER)]
+    
     def update(self):
         pass
 
     def handle_events(self, events):
         for event in events:
             if event.type == pygame.MOUSEBUTTONUP:
-                self.handleMouseButtonUp(self.code_given_in_colors, self.color_choices_stones, 
+                self._handle_mouse_button_up(self.code_given_in_colors, self.color_choices_stones, 
                                         self.current_row_of_stones)
 
 
-    def handleMouseButtonUp(self, code_given_in_colors, color_choices_stones, current_row_of_sprites):
+    def _handle_mouse_button_up(self, code_given_in_colors, color_choices_stones, current_row_of_sprites):
         if len(code_given_in_colors) < Settings.STONE_NUMBER:
             pos = pygame.mouse.get_pos()
             clicked_stones = [s for s in color_choices_stones if s.rect.collidepoint(pos)]
