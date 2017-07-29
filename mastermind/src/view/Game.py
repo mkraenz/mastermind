@@ -9,6 +9,7 @@ from util import Settings
 from ViewSettings import COLORS_TO_RGB
 from ViewSettings import BLOCK_SIZE as block_size
 from view import ViewSettings
+from view.Stone import Stone
 
 def drawColorChoices(surface, color_choices_stones):
     counter = 1
@@ -49,52 +50,66 @@ def handleMouseButtonUp(code_given_in_colors, color_choices_stones, current_row_
             
     elif True:
         pass  # TODO:
-        
-class Stone(pygame.sprite.Sprite):
+       
+
+def drawEncrypterScreen(surface,color_choices_stones, current_row_of_sprites):
+            surface.fill(COLORS_TO_RGB['white'])
+            drawColorChoices(surface, color_choices_stones)
+            drawRowOfStones(surface, current_row_of_sprites)
+
+
+def drawStartScreen(surface, font):
+    screen_text = font.render('Hit Enter to Start', True, COLORS_TO_RGB['black'])
+    surface.blit(screen_text, [surface.get_width()/2, surface.get_height()/2])
+
+
+def handleStartScreen(surface, font, is_show_start_screen, color_choices_stones, current_row_of_sprites):
+    '''
+    Draws start screen until Return key was hit. Then draw board for encrypter.
+    @return: False if Return key was hit, else True
+    '''
+    drawStartScreen(surface, font)
+    for event in pygame.event.get():
+        if event.type == pygame.KEYUP and event.key == pygame.K_RETURN:
+            drawEncrypterScreen(surface, color_choices_stones, current_row_of_sprites)
+            return False
+    return True
+
+def game_loop(surface):
+    color_choices_stones = []
+    current_row_of_sprites = []
+    code_given_in_colors = []
+                            
+    gameExit = False
+    is_show_start_screen = True
+    font = pygame.font.SysFont(None, 25)
     
-    def __init__(self, color, width, height, posX=0, posY=0):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface([width, height])
-        self.image.fill(color)
-        self.color = color
-        
-        # Fetch the rectangle object that has the dimensions of the image
-        # Update the position of this object by setting the values of rect.x and rect.y
-        self.rect = self.image.get_rect(center=(posX + block_size / 2, posY + block_size / 2))
-        
-    def set_color(self, color):
-        self.color = color
-        self.image.fill(color)
-        self.rect = self.image.get_rect()
-        
+    while not gameExit:
+        if is_show_start_screen:
+            is_show_start_screen = handleStartScreen(surface, font, is_show_start_screen,
+                              color_choices_stones, current_row_of_sprites)
+                    
+        else:
+            for event in pygame.event.get():
+                if Settings.DEBUG_LEVEL >= 2 and event.type != pygame.MOUSEMOTION:
+                    print(event)
+                if event.type == pygame.QUIT:
+                    gameExit = True
+                elif event.type == pygame.MOUSEBUTTONUP:
+                    handleMouseButtonUp(code_given_in_colors, color_choices_stones, current_row_of_sprites)
+        pygame.display.update()
+
+def getConfiguredMainSurface():
+    surface = pygame.display.set_mode(ViewSettings.SCREEN_DIMENSIONS)
+    surface.fill(COLORS_TO_RGB['white'])
+    pygame.display.set_caption('Mastermind. App by ProSingularity.')
+    return surface
+
+
 
 # main
 pygame.init()
-
-surface = pygame.display.set_mode(ViewSettings.SCREEN_DIMENSIONS)
-surface.fill(COLORS_TO_RGB['white'])
-pygame.display.set_caption('Mastermind. App by ProSingularity.')
-
-color_choices_stones = []
-current_row_of_sprites = []
-code_given_in_colors = []
-
-drawColorChoices(surface, color_choices_stones)
-drawRowOfStones(surface, current_row_of_sprites)
-
-gameExit = False
-
-while not gameExit:
-    for event in pygame.event.get():
-        if Settings.DEBUG_LEVEL >= 2 and event.type != pygame.MOUSEMOTION:
-            print(event)
-        if event.type == pygame.QUIT:
-            gameExit = True
-        elif event.type == pygame.MOUSEBUTTONUP:
-            handleMouseButtonUp(code_given_in_colors, color_choices_stones, current_row_of_sprites)
-            
-        
-    pygame.display.update()
-
+surface = getConfiguredMainSurface()
+game_loop(surface)
 pygame.quit()
 quit()
