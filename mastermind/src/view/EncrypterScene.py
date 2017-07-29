@@ -10,6 +10,7 @@ from view import ViewSettings
 from view.ViewSettings import COLORS_TO_RGB
 from view.Stone import Stone
 from ViewSettings import BLOCK_SIZE
+from view.DecrypterScene import DecrypterScene
 
 
 class EncrypterScene(IScene):
@@ -24,20 +25,10 @@ class EncrypterScene(IScene):
             print('enter EncrypterScene')
             
     def render(self, surface):
-        if not self.current_row_of_stones:
-            self.current_row_of_stones = self._init_current_row_of_stones(surface)
         surface.fill(COLORS_TO_RGB['white'])
         self._draw_color_choices(surface, self.color_choices_stones)
         self._draw_row_of_stones(surface, self.current_row_of_stones)
-#         for stone in self.current_row_of_stones:
-#             stone.render(surface)
 
-    def _init_current_row_of_stones(self, surface):
-        return [Stone(COLORS_TO_RGB['black'], BLOCK_SIZE, BLOCK_SIZE,
-                surface.get_width() / (Settings.STONE_NUMBER + 1) * (i + 1) - BLOCK_SIZE / 2,
-                surface.get_height() * 0.4) 
-                                            for i in xrange(Settings.STONE_NUMBER)]
-    
     def update(self):
         pass
 
@@ -62,6 +53,10 @@ class EncrypterScene(IScene):
                 code_given_in_colors.append(ViewSettings.RGB_TO_COLORS[clicked_stone.color])
                 if Settings.DEBUG_LEVEL >= 1:
                     print('code_given_in_colors = ' + str(code_given_in_colors))
+                    
+                # TODO: probably MOVE this somewhere else in #8
+                if len(code_given_in_colors) == Settings.STONE_NUMBER:
+                    self.manager.go_to(DecrypterScene())
                 
         else:
             pass  # TODO:
@@ -85,5 +80,14 @@ class EncrypterScene(IScene):
         return color_choices_stones
     
     def _draw_row_of_stones(self, surface, current_row_of_sprites):
+        if not self.current_row_of_stones:
+            self.current_row_of_stones = self._init_current_row_of_stones(surface)
         for stone in current_row_of_sprites:
             stone.render(surface)
+
+    def _init_current_row_of_stones(self, surface):
+        return [Stone(COLORS_TO_RGB['black'], BLOCK_SIZE, BLOCK_SIZE,
+                surface.get_width() / (Settings.STONE_NUMBER + 1) * (i + 1) - BLOCK_SIZE / 2,
+                surface.get_height() * 0.4) 
+                                            for i in xrange(Settings.STONE_NUMBER)]
+    
