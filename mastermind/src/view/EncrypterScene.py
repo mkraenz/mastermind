@@ -27,8 +27,8 @@ class EncrypterScene(IScene):
         if not self.current_row_of_stones:
             self.current_row_of_stones = self._init_current_row_of_stones(surface)
         surface.fill(COLORS_TO_RGB['white'])
-        self.drawColorChoices(surface, self.color_choices_stones)
-        self.drawRowOfStones(surface, self.current_row_of_stones)
+        self._draw_color_choices(surface, self.color_choices_stones)
+        self._draw_row_of_stones(surface, self.current_row_of_stones)
 #         for stone in self.current_row_of_stones:
 #             stone.render(surface)
 
@@ -69,7 +69,7 @@ class EncrypterScene(IScene):
             pass  # TODO:
         
         
-    def drawColorChoices(self, surface, color_choices_stones):
+    def _draw_color_choices(self, surface, color_choices_stones):
         if not color_choices_stones:
             self.color_choices_stones = self._init_color_choices_stones(surface)
         for stone in self.color_choices_stones:
@@ -86,6 +86,6 @@ class EncrypterScene(IScene):
             counter += 1
         return color_choices_stones
     
-    def drawRowOfStones(self, surface, current_row_of_sprites):
+    def _draw_row_of_stones(self, surface, current_row_of_sprites):
         for stone in current_row_of_sprites:
             stone.render(surface)
