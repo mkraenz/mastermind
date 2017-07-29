@@ -14,19 +14,25 @@ from ViewSettings import BLOCK_SIZE
 
 class EncrypterScene(IScene):
     
-    def __init__(self, color_choices_stones, current_row_of_sprites, code_given_in_colors):
+    def __init__(self, color_choices_stones, current_row_of_stones, code_given_in_colors):
         IScene.__init__(self)
         self.color_choices_stones = color_choices_stones
-        self.current_row_of_sprites = current_row_of_sprites
+        self.current_row_of_stones = current_row_of_stones
         self.code_given_in_colors = code_given_in_colors
+        
         if Settings.DEBUG_LEVEL >= 1:
             print('enter EncrypterScene')
-
+            
     def render(self, surface):
+        if not self.current_row_of_stones:
+            self.current_row_of_stones = [Stone(COLORS_TO_RGB['black'], BLOCK_SIZE, BLOCK_SIZE,
+                surface.get_width() / (Settings.STONE_NUMBER + 1) * (i + 1) - BLOCK_SIZE / 2,
+                surface.get_height() * 0.4) 
+                                            for i in xrange(Settings.STONE_NUMBER)]
         surface.fill(COLORS_TO_RGB['white'])
         self.drawColorChoices(surface, self.color_choices_stones)
-        self.drawRowOfStones(surface, self.current_row_of_sprites)
-#         for stone in self.current_row_of_sprites:
+        self.drawRowOfStones(surface, self.current_row_of_stones)
+#         for stone in self.current_row_of_stones:
 #             stone.render(surface)
 
     def update(self):
@@ -36,7 +42,7 @@ class EncrypterScene(IScene):
         for event in events:
             if event.type == pygame.MOUSEBUTTONUP:
                 self.handleMouseButtonUp(self.code_given_in_colors, self.color_choices_stones, 
-                                        self.current_row_of_sprites)
+                                        self.current_row_of_stones)
 
 
     def handleMouseButtonUp(self, code_given_in_colors, color_choices_stones, current_row_of_sprites):
@@ -49,7 +55,7 @@ class EncrypterScene(IScene):
                     print('clicked colored stone: ' + 
                           str((clicked_stone, ViewSettings.RGB_TO_COLORS[clicked_stone.color])))
                 # TODO: color central stones in color of clicked_stone
-                # current_row_of_sprites[len(code_given_in_colors)].set_color(clicked_stone.color)
+                self.current_row_of_stones[len(code_given_in_colors)].set_color(clicked_stone.color)
                 # pygame.display.update()
                 
                 code_given_in_colors.append(ViewSettings.RGB_TO_COLORS[clicked_stone.color])
@@ -73,10 +79,6 @@ class EncrypterScene(IScene):
             counter += 1
     
     def drawRowOfStones(self, surface, current_row_of_sprites):
-        for i in xrange(Settings.STONE_NUMBER):
-            stone = Stone(COLORS_TO_RGB['black'],
-                BLOCK_SIZE, BLOCK_SIZE)
-            surface.blit(stone.image,
-                (surface.get_width() / (Settings.STONE_NUMBER + 1) * (i + 1) - BLOCK_SIZE / 2,
-                surface.get_height() * 0.4))
-            current_row_of_sprites.append(stone)
+#         map(lambda stone: stone.render(surface),current_row_of_stones)    
+        for stone in current_row_of_sprites:
+            stone.render(surface)

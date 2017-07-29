@@ -8,7 +8,7 @@ from ViewSettings import BLOCK_SIZE as block_size
  
 class Stone(pygame.sprite.Sprite):
     
-    def __init__(self, color, width, height, posX=0, posY=0):
+    def __init__(self, color, width, height, posX, posY):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface([width, height])
         self.image.fill(color)
