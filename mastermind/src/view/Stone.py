@@ -23,5 +23,3 @@ class Stone(pygame.sprite.Sprite):
         
     def set_color(self, color):
         self.color = color
-        self.image.fill(color)
-        self.rect = self.image.get_rect()

@@ -79,6 +79,5 @@ class EncrypterScene(IScene):
             counter += 1
     
     def drawRowOfStones(self, surface, current_row_of_sprites):
-#         map(lambda stone: stone.render(surface),current_row_of_stones)    
         for stone in current_row_of_sprites:
             stone.render(surface)
