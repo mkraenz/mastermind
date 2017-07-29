@@ -19,8 +19,9 @@ class EncrypterScene(IScene):
     def __init__(self, color_choices_stones, current_row_of_stones, code_given_in_colors):
         IScene.__init__(self)
         self.color_choices_stones = color_choices_stones
-        self.current_row_of_stones = current_row_of_stones
+        self.combination_stones = current_row_of_stones
         self.code_given_in_colors = code_given_in_colors
+        self.selected_combination_stone = None
         
         if Settings.DEBUG_LEVEL >= 1:
             print('enter EncrypterScene')
@@ -28,7 +29,7 @@ class EncrypterScene(IScene):
     def render(self, surface):
         surface.fill(COLORS_TO_RGB['white'])
         self._draw_color_choices(surface, self.color_choices_stones)
-        self._draw_row_of_stones(surface, self.current_row_of_stones)
+        self._draw_row_of_stones(surface, self.combination_stones)
         if len(self.code_given_in_colors) == Settings.STONE_NUMBER:
             self.draw_continue_text(surface)
 
@@ -38,30 +39,37 @@ class EncrypterScene(IScene):
     def handle_events(self, events):
         for event in events:
             if event.type == pygame.MOUSEBUTTONUP:
-                self._handle_mouse_button_up(self.code_given_in_colors, self.color_choices_stones, 
-                                        self.current_row_of_stones)
+                self._handle_mouse_button_up(self.code_given_in_colors, self.color_choices_stones,
+                                        self.combination_stones)
             elif event.type == pygame.KEYUP and event.key == pygame.K_RETURN and \
                         self._is_goal_combi_complete():
                 self.manager.go_to(DecrypterScene())
 
 
-    def _handle_mouse_button_up(self, code_given_in_colors, color_choices_stones, current_row_of_sprites):
+
+    def _handle_clicked_color_stone(self, code_given_in_colors, clicked_stone):
+        if Settings.DEBUG_LEVEL >= 1:
+            print 'clicked colored stone: ' + str((clicked_stone, ViewSettings.RGB_TO_COLORS[clicked_stone.color]))
+        self.combination_stones[len(code_given_in_colors)].set_color(clicked_stone.color)
+        code_given_in_colors.append(ViewSettings.RGB_TO_COLORS[clicked_stone.color])
+        if Settings.DEBUG_LEVEL >= 1:
+            print 'code_given_in_colors = ' + str(code_given_in_colors)
+
+    def _handle_mouse_button_up(self, code_given_in_colors, color_choices_stones, combination_stones):
         if len(code_given_in_colors) < Settings.STONE_NUMBER:
             pos = pygame.mouse.get_pos()
-            clicked_stones = [s for s in color_choices_stones if s.rect.collidepoint(pos)]
-            if clicked_stones:
-                clicked_stone = clicked_stones[0]
-                if Settings.DEBUG_LEVEL >= 1:
-                    print('clicked colored stone: ' + 
-                          str((clicked_stone, ViewSettings.RGB_TO_COLORS[clicked_stone.color])))
-                    
-                self.current_row_of_stones[len(code_given_in_colors)].set_color(clicked_stone.color)
-                code_given_in_colors.append(ViewSettings.RGB_TO_COLORS[clicked_stone.color])
-                if Settings.DEBUG_LEVEL >= 1:
-                    print('code_given_in_colors = ' + str(code_given_in_colors))
-                    
-                # TODO: probably MOVE this somewhere else in #8
+            
+            clicked_color_stones = [s for s in color_choices_stones if s.rect.collidepoint(pos)]
+            if clicked_color_stones:
+                self._handle_clicked_color_stone(code_given_in_colors, clicked_color_stones[0])
                 
+            else:
+                clicked_combination_stones = [s for s in combination_stones if s.rect.collidepoint(pos)]
+                if clicked_combination_stones:
+                    self.selected_combination_stone = clicked_combination_stones[0]
+                    if Settings.DEBUG_LEVEL >= 1:
+                        print('(selected combination stone, index in combination_stones) = ', 
+                              self.selected_combination_stone, self.combination_stones.index(self.selected_combination_stone))
         else:
             pass  # TODO:
         
@@ -89,17 +97,17 @@ class EncrypterScene(IScene):
         return color_choices_stones
     
     def _draw_row_of_stones(self, surface, current_row_of_sprites):
-        if not self.current_row_of_stones:
-            self.current_row_of_stones = self._init_current_row_of_stones(surface)
+        if not self.combination_stones:
+            self._init_current_row_of_stones(surface)
         for stone in current_row_of_sprites:
             stone.render(surface)
 
     def _init_current_row_of_stones(self, surface):
-        return [Stone(COLORS_TO_RGB['black'], BLOCK_SIZE, BLOCK_SIZE,
+        self.combination_stones = [Stone(COLORS_TO_RGB['black'], BLOCK_SIZE, BLOCK_SIZE,
                 surface.get_width() / (Settings.STONE_NUMBER + 1) * (i + 1) - BLOCK_SIZE / 2,
                 surface.get_height() * 0.4) 
                                             for i in xrange(Settings.STONE_NUMBER)]
-    
+        self.selected_combination_stone = self.combination_stones[0]
 
     def _is_goal_combi_complete(self):
         return True if len(self.code_given_in_colors) == Settings.STONE_NUMBER else False
