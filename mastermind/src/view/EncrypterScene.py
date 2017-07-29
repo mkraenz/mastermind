@@ -70,16 +70,21 @@ class EncrypterScene(IScene):
         
         
     def drawColorChoices(self, surface, color_choices_stones):
+        if not color_choices_stones:
+            self.color_choices_stones = self._init_color_choices_stones(surface)
+        for stone in self.color_choices_stones:
+            stone.render(surface)
+            
+    def _init_color_choices_stones(self, surface):
         counter = 1
+        color_choices_stones = []
         for color in Settings.COLORS:
             stone = Stone(COLORS_TO_RGB[color], BLOCK_SIZE, BLOCK_SIZE,
                           surface.get_width() / (len(Settings.COLORS) + 1) * counter - BLOCK_SIZE / 2,
                           surface.get_height() * 0.8)
-            surface.blit(stone.image,
-                (surface.get_width() / (len(Settings.COLORS) + 1) * counter - BLOCK_SIZE / 2,
-                surface.get_height() * 0.8))
             color_choices_stones.append(stone)
             counter += 1
+        return color_choices_stones
     
     def drawRowOfStones(self, surface, current_row_of_sprites):
         for stone in current_row_of_sprites:
