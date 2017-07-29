@@ -6,7 +6,6 @@ Created on 10.09.2014
 from logic.IWinManager import IWinManager
 from util.IManageable import IManageable
 from util.Settings import STONE_NUMBER, ROUND_NUMBER
-from logic import IResettable
 
 
 class Evaluator(IWinManager, IManageable):

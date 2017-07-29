@@ -6,6 +6,7 @@ Created on 10.09.2014
 from util.IManageable import IManageable
 from cmdline_input.ITupleInput import ITupleInput
 from util.Settings import COLORS, STONE_NUMBER
+from random import randint
 
 class GoalInputHandler(IManageable, ITupleInput):
     '''
@@ -17,6 +18,11 @@ class GoalInputHandler(IManageable, ITupleInput):
 
     def get_tuple(self):
         return self.tuple
+    
+    def get_random_combination(self):
+        # if some numbers are switched of this does not make sense
+        # better use Settings.COLORS.values and randomly choose out of this collection
+        return [randint(0, len(COLORS)) for _ in xrange(STONE_NUMBER)]
             
     def manage(self):
         ''' ask for a new input tuple, until it fulfills the conditions defined in the Settings '''
@@ -30,3 +36,7 @@ class GoalInputHandler(IManageable, ITupleInput):
                     self.tuple = combi
                     break
             except: KeyError("Non-valid value found.")
+
+if __name__ == '__main__':
+    g = GoalInputHandler()
+    print(g.randomCombination())
