@@ -13,6 +13,7 @@ from ViewSettings import BLOCK_SIZE
 from view.DecrypterScene import DecrypterScene
 
 
+
 class EncrypterScene(IScene):
     
     def __init__(self, color_choices_stones, current_row_of_stones, code_given_in_colors):
@@ -28,6 +29,8 @@ class EncrypterScene(IScene):
         surface.fill(COLORS_TO_RGB['white'])
         self._draw_color_choices(surface, self.color_choices_stones)
         self._draw_row_of_stones(surface, self.current_row_of_stones)
+        if len(self.code_given_in_colors) == Settings.STONE_NUMBER:
+            self.draw_continue_text(surface)
 
     def update(self):
         pass
@@ -37,6 +40,9 @@ class EncrypterScene(IScene):
             if event.type == pygame.MOUSEBUTTONUP:
                 self._handle_mouse_button_up(self.code_given_in_colors, self.color_choices_stones, 
                                         self.current_row_of_stones)
+            elif event.type == pygame.KEYUP and event.key == pygame.K_RETURN and \
+                        self._is_goal_combi_complete():
+                self.manager.go_to(DecrypterScene())
 
 
     def _handle_mouse_button_up(self, code_given_in_colors, color_choices_stones, current_row_of_sprites):
@@ -55,12 +61,15 @@ class EncrypterScene(IScene):
                     print('code_given_in_colors = ' + str(code_given_in_colors))
                     
                 # TODO: probably MOVE this somewhere else in #8
-                if len(code_given_in_colors) == Settings.STONE_NUMBER:
-                    self.manager.go_to(DecrypterScene())
                 
         else:
             pass  # TODO:
         
+    def draw_continue_text(self, surface):
+        text1 = pygame.font.SysFont('Arial', 24).render(
+            'This is the goal combination. Press Return key to continue.',
+            True, COLORS_TO_RGB['black'])
+        surface.blit(text1, (120, 200))
         
     def _draw_color_choices(self, surface, color_choices_stones):
         if not color_choices_stones:
@@ -91,3 +100,6 @@ class EncrypterScene(IScene):
                 surface.get_height() * 0.4) 
                                             for i in xrange(Settings.STONE_NUMBER)]
     
+
+    def _is_goal_combi_complete(self):
+        return True if len(self.code_given_in_colors) == Settings.STONE_NUMBER else False
