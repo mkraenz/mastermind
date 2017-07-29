@@ -57,15 +57,13 @@ class EncrypterScene(IScene):
                 if Settings.DEBUG_LEVEL >= 1:
                     print('clicked colored stone: ' + 
                           str((clicked_stone, ViewSettings.RGB_TO_COLORS[clicked_stone.color])))
-                # TODO: color central stones in color of clicked_stone
+                    
                 self.current_row_of_stones[len(code_given_in_colors)].set_color(clicked_stone.color)
-                # pygame.display.update()
-                
                 code_given_in_colors.append(ViewSettings.RGB_TO_COLORS[clicked_stone.color])
                 if Settings.DEBUG_LEVEL >= 1:
                     print('code_given_in_colors = ' + str(code_given_in_colors))
                 
-        elif True:
+        else:
             pass  # TODO:
         
         
