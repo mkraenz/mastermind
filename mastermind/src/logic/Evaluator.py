@@ -5,7 +5,7 @@ Created on 10.09.2014
 '''
 from logic.IWinManager import IWinManager
 from util.IManageable import IManageable
-from util.Settings import STONE_NUMBER, ROUND_NUMBER
+from util.Settings import CODELENGTH, ROUND_NUMBER
 
 
 class Evaluator(IWinManager, IManageable):
@@ -29,7 +29,7 @@ class Evaluator(IWinManager, IManageable):
         self.eval_list = []
         
     def is_won(self):
-        if self.eval_list[-1][0] == STONE_NUMBER:
+        if self.eval_list[-1][0] == CODELENGTH:
             return True
         return False
     
