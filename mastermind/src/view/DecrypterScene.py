@@ -15,10 +15,6 @@ class DecrypterScene(CrypterScene):
 
     def render(self, surface):
         CrypterScene.render(self, surface)
-        self._draw_row_of_stones(surface, self.current_combination_stones)
-
-    def update(self):
-        pass
 
     def handle_events(self, events):
         pass

@@ -19,11 +19,11 @@ class CrypterScene(IScene):
         self.code_given_in_colors = code_given_in_colors
         self.selected_combination_stone = None
 
+    def update(self):
+        pass
 
     def render(self, surface):
         surface.fill(COLORS_TO_RGB['white'])
-        if not self.current_combination_stones:
-            self._init_current_row_of_stones(surface)
         self._draw_color_choices(surface, self.color_choices_stones)
         
     def _draw_color_choices(self, surface, color_choices_stones):
@@ -32,9 +32,13 @@ class CrypterScene(IScene):
         for stone in self.color_choices_stones:
             stone.render(surface)      
 
-    def _init_current_row_of_stones(self, surface):
-        self.current_combination_stones = [Stone(COLORS_TO_RGB['black'], BLOCK_SIZE, BLOCK_SIZE,
-                surface.get_width() / (Settings.STONE_NUMBER + 1) * (i + 1) - BLOCK_SIZE / 2,
-                surface.get_height() * 0.4) 
-                                            for i in xrange(Settings.STONE_NUMBER)]
-        self.selected_combination_stone = self.current_combination_stones[0]
+    def _init_color_choices_stones(self, surface):
+        counter = 1
+        color_choices_stones = []
+        for color in Settings.COLORS:
+            stone = Stone(COLORS_TO_RGB[color], BLOCK_SIZE, BLOCK_SIZE,
+                          surface.get_width() / (len(Settings.COLORS) + 1) * counter - BLOCK_SIZE / 2,
+                          surface.get_height() * 0.8)
+            color_choices_stones.append(stone)
+            counter += 1
+        return color_choices_stones
