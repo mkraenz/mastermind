@@ -25,6 +25,7 @@ class DecrypterScene(CrypterScene):
             
 
     def handle_events(self, events):
+        CrypterScene.handle_events(self, events)
         pass
     
     def _draw_combinations_matrix(self, surface):
@@ -40,7 +41,7 @@ class DecrypterScene(CrypterScene):
         for j in xrange(Settings.ROUND_NUMBER):
             combination_row = [Stone(COLORS_TO_RGB['black'], BLOCK_SIZE, BLOCK_SIZE,
                 surface.get_width() / (Settings.CODELENGTH + 1) * (i + 1) - BLOCK_SIZE / 2,
-                surface.get_height()*0.7 * Settings.ROUND_NUMBER * j) 
+                (surface.get_height()*0.8) / Settings.ROUND_NUMBER * j +10) 
                                             for i in xrange(Settings.CODELENGTH)]
             self.combinations_matrix.append(combination_row)
                                             

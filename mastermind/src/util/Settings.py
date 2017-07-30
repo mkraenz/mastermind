@@ -17,7 +17,7 @@ COLORS = {
 CODELENGTH = 3
 
 # number of rounds played
-ROUND_NUMBER = 10
+ROUND_NUMBER = 4
 
 DEBUG_LEVEL = 2
 
