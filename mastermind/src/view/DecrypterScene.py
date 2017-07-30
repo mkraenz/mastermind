@@ -12,6 +12,7 @@ class DecrypterScene(CrypterScene):
         CrypterScene.__init__(self, color_choices_stones, code_given_in_colors)
         if Settings.DEBUG_LEVEL >= 1:
             print('Enter DecrypterScene')
+            print('code_given_in_colors given to DecrypterScene =', code_given_in_colors)
 
     def render(self, surface):
         CrypterScene.render(self, surface)

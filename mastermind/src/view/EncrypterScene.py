@@ -5,13 +5,11 @@ Created on 29.07.2017
 '''
 import pygame
 from util import Settings
-from view import ViewSettings
 from view.ViewSettings import COLORS_TO_RGB
 from view.Stone import Stone
 from ViewSettings import BLOCK_SIZE
 from view.DecrypterScene import DecrypterScene
 from view.CrypterScene import CrypterScene
-
 
 
 class EncrypterScene(CrypterScene):
@@ -30,42 +28,14 @@ class EncrypterScene(CrypterScene):
 
 
     def handle_events(self, events):
+        CrypterScene.handle_events(self, events)
         for event in events:
-            if event.type == pygame.MOUSEBUTTONUP:
-                self._handle_mouse_button_up(self.code_given_in_colors, self.color_choices_stones,
-                                        self.current_combination_stones)
-            elif event.type == pygame.KEYUP and event.key == pygame.K_RETURN and \
+            if event.type == pygame.KEYUP and event.key == pygame.K_RETURN and \
                         self._is_goal_combi_complete():
                 self.manager.go_to(DecrypterScene(self.color_choices_stones, self.code_given_in_colors))
 
 
 
-    def _handle_clicked_color_stone(self, code_given_in_colors, clicked_stone):
-        if Settings.DEBUG_LEVEL >= 1:
-            print 'clicked colored stone: ' + str((clicked_stone, ViewSettings.RGB_TO_COLORS[clicked_stone.color]))
-            
-        self.selected_combination_stone.set_color(clicked_stone.color)
-        index = self.current_combination_stones.index(self.selected_combination_stone)
-        code_given_in_colors[index] = ViewSettings.RGB_TO_COLORS[clicked_stone.color]
-        
-        if Settings.DEBUG_LEVEL >= 1:
-            print 'code_given_in_colors = ' + str(code_given_in_colors)
-
-    def _handle_mouse_button_up(self, code_given_in_colors, color_choices_stones, combination_stones):
-        pos = pygame.mouse.get_pos()
-        
-        clicked_color_stones = [s for s in color_choices_stones if s.rect.collidepoint(pos)]
-        if clicked_color_stones:
-            self._handle_clicked_color_stone(code_given_in_colors, clicked_color_stones[0])
-            
-        else:
-            clicked_combination_stones = [s for s in combination_stones if s.rect.collidepoint(pos)]
-            if clicked_combination_stones:
-                self.selected_combination_stone = clicked_combination_stones[0]
-                if Settings.DEBUG_LEVEL >= 1:
-                    print('(selected combination stone, index in current_combination_stones) = ',
-                          self.selected_combination_stone, self.current_combination_stones.index(self.selected_combination_stone))
-        
     def draw_continue_text(self, surface):
         text1 = pygame.font.SysFont('Arial', 24).render(
             'This is the goal combination. Press Return key to continue.',
