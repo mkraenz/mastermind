@@ -14,7 +14,7 @@ COLORS = {
           }
 
 # the number of stones per combination
-STONE_NUMBER = 3
+CODELENGTH = 3
 
 # number of rounds played
 ROUND_NUMBER = 10

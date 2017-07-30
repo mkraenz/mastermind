@@ -5,7 +5,7 @@ Created on 10.09.2014
 '''
 from util.IManageable import IManageable
 from cmdline_input.ITupleInput import ITupleInput
-from util.Settings import COLORS, STONE_NUMBER
+from util.Settings import COLORS, CODELENGTH
 from random import randint
 
 class GoalInputHandler(IManageable, ITupleInput):
@@ -22,7 +22,7 @@ class GoalInputHandler(IManageable, ITupleInput):
     def get_random_combination(self):
         # if some numbers are switched of this does not make sense
         # better use Settings.COLORS.values and randomly choose out of this collection
-        return [randint(0, len(COLORS)) for _ in xrange(STONE_NUMBER)]
+        return [randint(0, len(COLORS)) for _ in xrange(CODELENGTH)]
             
     def manage(self):
         ''' ask for a new input tuple, until it fulfills the conditions defined in the Settings '''
@@ -31,7 +31,7 @@ class GoalInputHandler(IManageable, ITupleInput):
             try:
                 incoming_list = incoming.split()
                 # consistency test
-                if len(incoming_list) == STONE_NUMBER:
+                if len(incoming_list) == CODELENGTH:
                     combi = [COLORS[color] for color in incoming_list]
                     self.tuple = combi
                     break

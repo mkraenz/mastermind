@@ -51,13 +51,13 @@ class EncrypterScene(CrypterScene):
 
     def _init_current_row_of_stones(self, surface):
         self.current_combination_stones = [Stone(COLORS_TO_RGB['black'], BLOCK_SIZE, BLOCK_SIZE,
-                surface.get_width() / (Settings.STONE_NUMBER + 1) * (i + 1) - BLOCK_SIZE / 2,
+                surface.get_width() / (Settings.CODELENGTH + 1) * (i + 1) - BLOCK_SIZE / 2,
                 surface.get_height() * 0.4) 
-                                            for i in xrange(Settings.STONE_NUMBER)]
+                                            for i in xrange(Settings.CODELENGTH)]
         self.selected_combination_stone = self.current_combination_stones[0]
         
     def _init_code_given_in_colors(self):
-        self.code_given_in_colors = [''] * Settings.STONE_NUMBER
+        self.code_given_in_colors = [''] * Settings.CODELENGTH
 
     def _is_goal_combi_complete(self):
-        return True if len(self.code_given_in_colors) == Settings.STONE_NUMBER else False
+        return True if len(self.code_given_in_colors) == Settings.CODELENGTH else False
