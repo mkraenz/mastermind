@@ -4,7 +4,7 @@ Created on 04.09.2014
 @author: proSingularity
 '''
 
-from util.Settings import COLORS as COLORS, CODELENGTH
+from util.Settings import COLORS_TO_NUMBERS as COLORS_TO_NUMBERS, CODELENGTH
 from cmdline_input.ITupleInput import ITupleInput
 from util.IManageable import IManageable
 
@@ -27,7 +27,7 @@ class PlayerInputHandler(ITupleInput, IManageable):
                 incoming_list = incoming.split()
                 # consistency test
                 if len(incoming_list) == CODELENGTH:
-                    combi = [COLORS[color] for color in incoming_list]
+                    combi = [COLORS_TO_NUMBERS[color] for color in incoming_list]
                     self.tuple = combi
                     break
             except: KeyError("Non-valid value found.")

@@ -4,7 +4,7 @@ Created on 04.09.2014
 @author: proSingularity
 '''
 
-COLORS = {
+COLORS_TO_NUMBERS = {
           "blue": 1,
           "red": 2,
           "yellow": 3,
