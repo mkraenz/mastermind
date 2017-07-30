@@ -31,7 +31,7 @@ class EncrypterScene(CrypterScene):
         CrypterScene.handle_events(self, events)
         for event in events:
             if event.type == pygame.KEYUP and event.key == pygame.K_RETURN and \
-                        self._is_goal_combi_complete():
+                        self._is_valid_combination(self.current_combination_stones):
                 self.manager.go_to(DecrypterScene(self.color_choices_stones, self.code_given_in_colors))
 
 
@@ -59,5 +59,6 @@ class EncrypterScene(CrypterScene):
     def _init_code_given_in_colors(self):
         self.code_given_in_colors = [''] * Settings.CODELENGTH
 
-    def _is_goal_combi_complete(self):
-        return True if len(self.code_given_in_colors) == Settings.CODELENGTH else False
+    def _is_valid_combination(self, combination):
+        black_stones = [stone for stone in combination if stone.color == COLORS_TO_RGB['black']]
+        return True if not black_stones else False

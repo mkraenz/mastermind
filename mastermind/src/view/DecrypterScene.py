@@ -7,6 +7,7 @@ from util import Settings
 from view.CrypterScene import CrypterScene
 from view.Stone import Stone
 from view.ViewSettings import COLORS_TO_RGB, BLOCK_SIZE
+import pygame
 
 class DecrypterScene(CrypterScene):
     
@@ -26,7 +27,22 @@ class DecrypterScene(CrypterScene):
 
     def handle_events(self, events):
         CrypterScene.handle_events(self, events)
-        pass
+        
+        for event in events:
+            if event.type == pygame.KEYUP and pygame.K_RETURN and \
+                        self._is_valid_combination(self.current_combination_stones):
+                current_round = self.combinations_matrix.index(self.current_combination_stones) + 1
+                print('current round = %s') %current_round
+                if  current_round != Settings.ROUND_NUMBER:
+                    # TODO: do logic stuff like evaluation etc
+                    self.current_combination_stones = self.combinations_matrix[current_round]
+                    pass 
+                else: # we are in the final round. 
+                    pass #TODO: end game
+    
+    def _is_valid_combination(self, combination):
+        black_stones = [stone for stone in combination if stone.color == COLORS_TO_RGB['black']]
+        return True if not black_stones else False
     
     def _draw_combinations_matrix(self, surface):
         if not self.combinations_matrix:
