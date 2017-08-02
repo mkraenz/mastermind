@@ -9,6 +9,8 @@ from view.Stone import Stone
 from view.ViewSettings import COLORS_TO_RGB, BLOCK_SIZE
 import pygame
 from view import ViewSettings
+from view.WinScene import WinScene
+from view.GameOverScene import GameOverScene
 
 class DecrypterScene(CrypterScene):
     
@@ -42,12 +44,10 @@ class DecrypterScene(CrypterScene):
                 
                 if self.check_is_won(self.results_tuples[current_round-1]):
                     # TODO: init winning scene (good job screen + stats + on Return goto EncrypterScene)
-                    print('GZ you win')
-                    pass
+                    self.manager.go_to(WinScene())
                 elif self.check_is_lost(current_round):
                     # TODO: init game over scene (game over text + on Return goto EncrypterScene)
-                    print('Game Over. Try again.')
-                    pass
+                    self.manager.go_to(GameOverScene())
                 else: # game continues
                     self.current_combination_stones = self.combinations_matrix[current_round]
                     self.selected_combination_stone = self.current_combination_stones[0]
