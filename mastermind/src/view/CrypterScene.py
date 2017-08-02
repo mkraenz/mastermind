@@ -7,7 +7,6 @@ from view.IScene import IScene
 from view.ViewSettings import COLORS_TO_RGB, BLOCK_SIZE
 from view.Stone import Stone
 from util import Settings
-from view import ViewSettings
 import pygame
 
 class CrypterScene(IScene):
@@ -31,7 +30,7 @@ class CrypterScene(IScene):
     def handle_events(self, events):
         for event in events:
             if event.type == pygame.MOUSEBUTTONUP:
-                self._handle_mouse_button_up(self.code_given_in_colors, self.color_choices_stones,
+                self._handle_mouse_button_up(self.color_choices_stones,
                                         self.current_combination_stones)
         
     def _draw_color_choices(self, surface, color_choices_stones):
@@ -43,33 +42,25 @@ class CrypterScene(IScene):
     def _init_color_choices_stones(self, surface):
         counter = 1
         color_choices_stones = []
-        for color in Settings.COLORS:
+        for color in Settings.COLORS_TO_NUMBERS:
             stone = Stone(COLORS_TO_RGB[color], BLOCK_SIZE, BLOCK_SIZE,
-                          surface.get_width() / (len(Settings.COLORS) + 1) * counter - BLOCK_SIZE / 2,
+                          surface.get_width() / (len(Settings.COLORS_TO_NUMBERS) + 1) * counter - BLOCK_SIZE / 2,
                           surface.get_height() * 0.8)
             color_choices_stones.append(stone)
             counter += 1
         return color_choices_stones
     
     
-    def _handle_clicked_color_stone(self, code_given_in_colors, clicked_stone):
-        if Settings.DEBUG_LEVEL >= 1:
-            print 'clicked colored stone: ' + str((clicked_stone, ViewSettings.RGB_TO_COLORS[clicked_stone.color]))
-            
-        self.selected_combination_stone.set_color(clicked_stone.color)
-        index = self.current_combination_stones.index(self.selected_combination_stone)
-        code_given_in_colors[index] = ViewSettings.RGB_TO_COLORS[clicked_stone.color]
-        
-        if Settings.DEBUG_LEVEL >= 1:
-            print 'code_given_in_colors = ' + str(code_given_in_colors)
+    def _handle_clicked_color_stone(self, clicked_stone):
+        raise NotImplementedError
             
 
-    def _handle_mouse_button_up(self, code_given_in_colors, color_choices_stones, combination_stones):
+    def _handle_mouse_button_up(self, color_choices_stones, combination_stones):
         pos = pygame.mouse.get_pos()
         
         clicked_color_stones = [s for s in color_choices_stones if s.rect.collidepoint(pos)]
         if clicked_color_stones:
-            self._handle_clicked_color_stone(code_given_in_colors, clicked_color_stones[0])
+            self._handle_clicked_color_stone(clicked_color_stones[0])
             
         else:
             clicked_combination_stones = [s for s in combination_stones if s.rect.collidepoint(pos)]
