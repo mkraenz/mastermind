@@ -30,7 +30,7 @@ class CrypterScene(IScene):
     def handle_events(self, events):
         for event in events:
             if event.type == pygame.MOUSEBUTTONUP:
-                self._handle_mouse_button_up(self.code_given_in_colors, self.color_choices_stones,
+                self._handle_mouse_button_up(self.color_choices_stones,
                                         self.current_combination_stones)
         
     def _draw_color_choices(self, surface, color_choices_stones):
@@ -51,16 +51,16 @@ class CrypterScene(IScene):
         return color_choices_stones
     
     
-    def _handle_clicked_color_stone(self, code_given_in_colors, clicked_stone):
+    def _handle_clicked_color_stone(self, clicked_stone):
         raise NotImplementedError
             
 
-    def _handle_mouse_button_up(self, code_given_in_colors, color_choices_stones, combination_stones):
+    def _handle_mouse_button_up(self, color_choices_stones, combination_stones):
         pos = pygame.mouse.get_pos()
         
         clicked_color_stones = [s for s in color_choices_stones if s.rect.collidepoint(pos)]
         if clicked_color_stones:
-            self._handle_clicked_color_stone(code_given_in_colors, clicked_color_stones[0])
+            self._handle_clicked_color_stone(clicked_color_stones[0])
             
         else:
             clicked_combination_stones = [s for s in combination_stones if s.rect.collidepoint(pos)]
