@@ -4,8 +4,8 @@ Created on 02.08.2017
 @author: Mirco
 '''
 from view.IScene import IScene
-from view.ViewSettings import COLORS_TO_RGB
-from view import ViewSettings
+from settings.ViewSettings import COLORS_TO_RGB
+from settings import ViewSettings
 import pygame
 
 class WinScene(IScene):

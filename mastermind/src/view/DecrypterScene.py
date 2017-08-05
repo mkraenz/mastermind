@@ -3,12 +3,12 @@ Created on 29.07.2017
 
 @author: Mirco
 '''
-from util import Settings
+from settings import Settings
 from view.CrypterScene import CrypterScene
 from view.Stone import Stone
-from view.ViewSettings import COLORS_TO_RGB, BLOCK_SIZE
+from settings.ViewSettings import COLORS_TO_RGB, BLOCK_SIZE
 import pygame
-from view import ViewSettings
+from settings import ViewSettings
 from view.WinScene import WinScene
 from view.GameOverScene import GameOverScene
 

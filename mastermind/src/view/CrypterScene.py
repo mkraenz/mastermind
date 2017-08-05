@@ -4,9 +4,9 @@ Created on 30.07.2017
 @author: Mirco
 '''
 from view.IScene import IScene
-from view.ViewSettings import COLORS_TO_RGB, BLOCK_SIZE
+from settings.ViewSettings import COLORS_TO_RGB, BLOCK_SIZE
 from view.Stone import Stone
-from util import Settings
+from settings import Settings
 import pygame
 
 class CrypterScene(IScene):

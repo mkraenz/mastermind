@@ -4,13 +4,13 @@ Created on 29.07.2017
 @author: Mirco
 '''
 import pygame
-from util import Settings
-from view.ViewSettings import COLORS_TO_RGB
+from settings import Settings
+from settings.ViewSettings import COLORS_TO_RGB
 from view.Stone import Stone
-from ViewSettings import BLOCK_SIZE
+from settings.ViewSettings import BLOCK_SIZE
 from view.DecrypterScene import DecrypterScene
 from view.CrypterScene import CrypterScene
-from view import ViewSettings
+from settings import ViewSettings
 
 
 class EncrypterScene(CrypterScene):

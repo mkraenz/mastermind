@@ -4,11 +4,11 @@ Created on 29.07.2017
 @author: Mirco
 '''
 import pygame
-from view import ViewSettings
+from settings import ViewSettings
 from view.IScene import IScene
-from view.ViewSettings import COLORS_TO_RGB
+from settings.ViewSettings import COLORS_TO_RGB
 from view.EncrypterScene import EncrypterScene
-from util import Settings
+from settings import Settings
 from view.DecrypterScene import DecrypterScene
 from view.AutoCodeCreater import AutoCodeCreater
 

@@ -4,8 +4,8 @@ Created on 02.08.2017
 @author: Mirco
 '''
 import pygame
-from view import ViewSettings
-from view.ViewSettings import COLORS_TO_RGB
+from settings import ViewSettings
+from settings.ViewSettings import COLORS_TO_RGB
 from view.IScene import IScene
 
 class GameOverScene(IScene):
