@@ -19,7 +19,7 @@ class Stone(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=(posX + block_size / 2, posY + block_size / 2))
         
     def render(self, surface):
-        self.rect = pygame.draw.rect(surface, self.color, self.rect)
+        pygame.draw.rect(surface, self.color, self.rect)
         
     def set_color(self, color):
         self.color = color
