@@ -17,34 +17,44 @@ class TitleScene(IScene):
         self.font = pygame.font.SysFont('Arial', 50)
         self.sfont = pygame.font.SysFont('Arial', 32)
         
-        self.start_game_text_rect = None
+        self.start_multiplayer_game_text_rect = None
+        self.start_singleplayer_game_text_rect = None
         self.exit_game_text_rect = None
         
         if Settings.DEBUG_LEVEL >= 1:
             print('enter TitleScene')
 
 
-    def _draw_start_new_game_button(self, surface):
-        start_game_text = self.font.render('Start new game.', True, COLORS_TO_RGB['black'])
-        self.start_game_text_rect = start_game_text.get_rect(center=(surface.get_width() / 2, 350))
-        pygame.draw.rect(surface, COLORS_TO_RGB['green'], self.start_game_text_rect, 5)
-        surface.blit(start_game_text, self.start_game_text_rect)
+    def _draw_start_multiplayer_game_button(self, surface):
+        multiplayer_game_text = self.font.render(' 2 Players ', True, COLORS_TO_RGB['black'])
+        self.start_multiplayer_game_text_rect = multiplayer_game_text.get_rect(center=(surface.get_width() / 2, 400))
+        self._draw_text_button(surface, multiplayer_game_text, self.start_multiplayer_game_text_rect)
 
+
+    def _draw_text_button(self, surface, text, text_rect):
+        pygame.draw.rect(surface, COLORS_TO_RGB['green'], text_rect, 5)
+        surface.blit(text, text_rect)
+
+    def _draw_start_singleplayer_game_button(self, surface):
+        start_game_text = self.font.render(' 1 Player ', True, COLORS_TO_RGB['black'])
+        self.start_singleplayer_game_text_rect = start_game_text.get_rect(center=(surface.get_width() / 2, 325))
+        self._draw_text_button(surface, start_game_text, self.start_singleplayer_game_text_rect)
 
     def _draw_exit_game_button(self, surface):
-        exit_game_text = self.font.render('Quit game.', True, COLORS_TO_RGB['black'])
-        self.exit_game_text_rect = exit_game_text.get_rect(center=(surface.get_width() / 2, 450))
-        pygame.draw.rect(surface, COLORS_TO_RGB['green'], self.exit_game_text_rect, 5)
-        surface.blit(exit_game_text, self.exit_game_text_rect)
+        exit_game_text = self.font.render(' Quit game ', True, COLORS_TO_RGB['black'])
+        self.exit_game_text_rect = exit_game_text.get_rect(center=(surface.get_width() / 2, 475))
+        self._draw_text_button(surface, exit_game_text, self.exit_game_text_rect)
 
     def _draw_title(self, surface):
         title_text = self.font.render('Are you the Mastermind?', True, COLORS_TO_RGB['black'])
-        surface.blit(title_text, (200, 50))
+        title_text_rect = title_text.get_rect(center=(surface.get_width()/2, 100))
+        surface.blit(title_text, title_text_rect)
 
     def render(self, surface):
         surface.fill(ViewSettings.COLORS_TO_RGB['white'])
         self._draw_title(surface)
-        self._draw_start_new_game_button(surface)
+        self._draw_start_singleplayer_game_button(surface)
+        self._draw_start_multiplayer_game_button(surface)
         self._draw_exit_game_button(surface)
 
     def update(self):
@@ -54,7 +64,12 @@ class TitleScene(IScene):
         for event in events:
             if event.type == pygame.MOUSEBUTTONUP:
                 pos = pygame.mouse.get_pos()
-                if self.start_game_text_rect.collidepoint(pos):
+                
+                if self.start_singleplayer_game_text_rect.collidepoint(pos):
+                    self.manager.go_to(EncrypterScene([], [])) #TODO: autocreate stuff
+                    
+                elif self.start_multiplayer_game_text_rect.collidepoint(pos):
                     self.manager.go_to(EncrypterScene([], []))
+                    
                 elif self.exit_game_text_rect.collidepoint(pos):
                     pygame.event.post(pygame.event.Event(pygame.QUIT, {}))
