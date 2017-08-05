@@ -4,7 +4,7 @@ Created on 29.07.2017
 @author: Mirco
 '''
 import pygame
-from ViewSettings import BLOCK_SIZE as block_size
+from settings.ViewSettings import BLOCK_SIZE as block_size
  
 class Stone(pygame.sprite.Sprite):
     

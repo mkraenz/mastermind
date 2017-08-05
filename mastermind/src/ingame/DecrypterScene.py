@@ -3,14 +3,13 @@ Created on 29.07.2017
 
 @author: Mirco
 '''
-from util import Settings
-from view.CrypterScene import CrypterScene
-from view.Stone import Stone
-from view.ViewSettings import COLORS_TO_RGB, BLOCK_SIZE
+from settings import Settings
 import pygame
-from view import ViewSettings
-from view.WinScene import WinScene
-from view.GameOverScene import GameOverScene
+from metagame.WinScene import WinScene
+from metagame.GameOverScene import GameOverScene
+from settings.ViewSettings import RGB_TO_COLORS, COLORS_TO_RGB, BLOCK_SIZE
+from ingame.Stone import Stone
+from ingame.CrypterScene import CrypterScene
 
 class DecrypterScene(CrypterScene):
     
@@ -43,10 +42,8 @@ class DecrypterScene(CrypterScene):
                     print(self.results_tuples[current_round - 1])
                 
                 if self.check_is_won(self.results_tuples[current_round - 1]):
-                    # TODO: init winning scene (good job screen + stats + on Return goto EncrypterScene)
                     self.manager.go_to(WinScene())
                 elif self.check_is_lost(current_round):
-                    # TODO: init game over scene (game over text + on Return goto EncrypterScene)
                     self.manager.go_to(GameOverScene())
                 else:  # game continues
                     self.current_combination_stones = self.combinations_matrix[current_round]
@@ -59,13 +56,13 @@ class DecrypterScene(CrypterScene):
     
     def get_result_tuple(self):
         goal_code = [color for color in self.code_given_in_colors]
-        code = [ViewSettings.RGB_TO_COLORS[stone.color] for stone in self.current_combination_stones]
+        code = [RGB_TO_COLORS[stone.color] for stone in self.current_combination_stones]
         return self.evaluate(code, goal_code)
                     
     
     def _handle_clicked_color_stone(self, clicked_stone):
         if Settings.DEBUG_LEVEL >= 1:
-            print 'clicked colored stone: ' + str((clicked_stone, ViewSettings.RGB_TO_COLORS[clicked_stone.color]))
+            print 'clicked colored stone: ' + str((clicked_stone, RGB_TO_COLORS[clicked_stone.color]))
             
         self.selected_combination_stone.set_color(clicked_stone.color)
 

@@ -4,7 +4,7 @@ Created on 05.08.2017
 @author: Mirco
 '''
 from random import randint
-from util import Settings
+from settings import Settings
 
 class AutoCodeCreater(object):
     '''
