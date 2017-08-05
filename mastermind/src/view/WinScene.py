@@ -15,17 +15,18 @@ class WinScene(IScene):
 
     def render(self, surface):
         surface.fill(ViewSettings.COLORS_TO_RGB['white'])
-        text1 = self.font.render('You win! Congratulations.', True, COLORS_TO_RGB['black'])
-        text2 = self.font.render('Press Return to start a new game.', True, COLORS_TO_RGB['black'])
-        surface.blit(text1, (200, 50))
-        surface.blit(text2, (200, 350))
+        self.draw_centered_text('You win! Congratulations!', 200, surface)
+        self.draw_centered_text('Press any button to return to title screen.', 400, surface)
+        
+    def draw_centered_text(self, message, height, surface):
+        text = self.font.render(message, True, COLORS_TO_RGB['black'])
+        text_rect = text.get_rect(center=(surface.get_width() / 2, height))
+        surface.blit(text, text_rect)
         
     def update(self):
         pass
 
     def handle_events(self, events):
         for event in events:
-            if event.type == pygame.KEYUP and event.key == pygame.K_RETURN:
-#                 self.manager.go_to(EncrypterScene([],[]))
+            if event.type == pygame.KEYUP:
                 self.manager.new_game()
-                print('goto EncrypterScene')
