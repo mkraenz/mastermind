@@ -3,7 +3,7 @@ Created on 29.07.2017
 
 @author: Mirco
 '''
-from view.TitleScreen import TitleScene
+from view.TitleScene import TitleScene
 
 class SceneManager(object):
     

@@ -71,7 +71,7 @@ class TitleScene(IScene):
                     code_given_in_colors = AutoCodeCreater().get_code()
                     if Settings.DEBUG_LEVEL >= 1:
                         print(code_given_in_colors)
-                    self.manager.go_to(DecrypterScene([], code_given_in_colors)) #TODO: autocreate stuff
+                    self.manager.go_to(DecrypterScene([], code_given_in_colors))
                     
                 elif self.start_multiplayer_game_text_rect.collidepoint(pos):
                     self.manager.go_to(EncrypterScene([], []))
