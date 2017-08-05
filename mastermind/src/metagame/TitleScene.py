@@ -8,9 +8,9 @@ from settings import ViewSettings
 from gamemanagement.IScene import IScene
 from settings.ViewSettings import COLORS_TO_RGB
 from settings import Settings
-from gamemanagement.AutoCodeCreater import AutoCodeCreater
 from ingame.EncrypterScene import EncrypterScene
 from ingame.DecrypterScene import DecrypterScene
+from metagame.AutoCodeCreater import AutoCodeCreater
 
 class TitleScene(IScene):
 
