@@ -18,7 +18,7 @@ class DecrypterScene(CrypterScene):
         CrypterScene.__init__(self, color_choices_stones, code_given_in_colors)
         
         self.combinations_matrix = []
-        self.results_tuples = []    # contains result_tuples (correct stones, correct color)
+        self.results_tuples = []  # contains result_tuples (correct stones, correct color)
                                     # parallel to combination matrix
         
         if Settings.DEBUG_LEVEL >= 1:
@@ -39,18 +39,23 @@ class DecrypterScene(CrypterScene):
                 current_round = self.combinations_matrix.index(self.current_combination_stones) + 1
                 self.results_tuples.append(self.get_result_tuple()) 
                 if Settings.DEBUG_LEVEL >= 1:
-                    print('current round = %s') %current_round
-                    print(self.results_tuples[current_round-1])
+                    print('current round = %s') % current_round
+                    print(self.results_tuples[current_round - 1])
                 
-                if self.check_is_won(self.results_tuples[current_round-1]):
+                if self.check_is_won(self.results_tuples[current_round - 1]):
                     # TODO: init winning scene (good job screen + stats + on Return goto EncrypterScene)
                     self.manager.go_to(WinScene())
                 elif self.check_is_lost(current_round):
                     # TODO: init game over scene (game over text + on Return goto EncrypterScene)
                     self.manager.go_to(GameOverScene())
-                else: # game continues
+                else:  # game continues
                     self.current_combination_stones = self.combinations_matrix[current_round]
                     self.selected_combination_stone = self.current_combination_stones[0]
+            if Settings.DEBUG_LEVEL >= 2:
+                if event.type == pygame.KEYUP and event.key == pygame.K_w:
+                    self.manager.go_to(WinScene())
+                if event.type == pygame.KEYUP and event.key == pygame.K_l:
+                    self.manager.go_to(GameOverScene())
     
     def get_result_tuple(self):
         goal_code = [color for color in self.code_given_in_colors]
@@ -76,7 +81,7 @@ class DecrypterScene(CrypterScene):
                 stone.render(surface)
         
     def _draw_result_tuples(self, surface):
-        pos_x = surface.get_width()*0.9
+        pos_x = surface.get_width() * 0.9
         for i in xrange(len(self.results_tuples)):
             text1 = pygame.font.SysFont('Arial', 24).render(
                 str(self.results_tuples[i]),
@@ -100,7 +105,7 @@ class DecrypterScene(CrypterScene):
         return surface.get_width() / (Settings.CODELENGTH + 1) * (column_index + 1) - BLOCK_SIZE / 2
     
     def _get_pos_y_of_combination_stone(self, surface, row_index):
-        return (surface.get_height()*0.8) / Settings.ROUND_NUMBER * row_index +10
+        return (surface.get_height() * 0.8) / Settings.ROUND_NUMBER * row_index + 10
       
     def evaluate(self, code, goal_code):
         goal_code_deletable = goal_code[:]
