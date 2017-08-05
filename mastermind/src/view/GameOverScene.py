@@ -16,8 +16,8 @@ class GameOverScene(IScene):
     def render(self, surface):
         surface.fill(ViewSettings.COLORS_TO_RGB['white'])
         self.draw_centered_text('Game Over. Better try again.', 200, surface)
-        self.draw_centered_text('Press any button to return to title screen.', 400, surface)
-       
+        self.draw_centered_text('Click to return to title screen.', 400, surface)
+
     def draw_centered_text(self, message, height, surface):
         text = self.font.render(message, True, COLORS_TO_RGB['black'])
         text_rect = text.get_rect(center=(surface.get_width() / 2, height))
@@ -28,5 +28,5 @@ class GameOverScene(IScene):
 
     def handle_events(self, events):
         for event in events:
-            if event.type == pygame.KEYUP:
+            if event.type == pygame.MOUSEBUTTONUP:
                 self.manager.new_game()

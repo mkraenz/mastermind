@@ -34,8 +34,9 @@ class EncrypterScene(CrypterScene):
             if event.type == pygame.KEYUP and event.key == pygame.K_RETURN and \
                         self._is_valid_combination(self.current_combination_stones):
                 self.manager.go_to(DecrypterScene(self.color_choices_stones, self.code_given_in_colors))
-            if event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
-                self.manager.go_to(DecrypterScene(self.color_choices_stones, ['red']*Settings.CODELENGTH))
+            if Settings.DEBUG_LEVEL >=2:
+                if event.type == pygame.KEYUP and event.key == pygame.K_SPACE:
+                    self.manager.go_to(DecrypterScene(self.color_choices_stones, ['red'] * Settings.CODELENGTH))
 
 
 

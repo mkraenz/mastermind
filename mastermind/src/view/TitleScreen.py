@@ -22,7 +22,7 @@ class TitleScene(IScene):
     def render(self, surface):
         surface.fill(ViewSettings.COLORS_TO_RGB['white'])
         text1 = self.font.render('Are you the Mastermind?', True, COLORS_TO_RGB['black'])
-        text2 = self.font.render('Press Return to Start', True, COLORS_TO_RGB['black'])
+        text2 = self.font.render('Click to start new game.', True, COLORS_TO_RGB['black'])
         surface.blit(text1, (200, 50))
         surface.blit(text2, (200, 350))
 
@@ -31,5 +31,5 @@ class TitleScene(IScene):
 
     def handle_events(self, events):
         for event in events:
-            if event.type == pygame.KEYUP and event.key == pygame.K_RETURN:
+            if event.type == pygame.MOUSEBUTTONUP:
                 self.manager.go_to(EncrypterScene([], []))
