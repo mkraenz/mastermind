@@ -4,13 +4,12 @@ Created on 29.07.2017
 @author: Mirco
 '''
 from settings import Settings
-from view.CrypterScene import CrypterScene
-from view.Stone import Stone
-from settings.ViewSettings import COLORS_TO_RGB, BLOCK_SIZE
 import pygame
-from settings import ViewSettings
-from view.WinScene import WinScene
-from view.GameOverScene import GameOverScene
+from metagame.WinScene import WinScene
+from metagame.GameOverScene import GameOverScene
+from settings.ViewSettings import RGB_TO_COLORS, COLORS_TO_RGB, BLOCK_SIZE
+from ingame.Stone import Stone
+from ingame.CrypterScene import CrypterScene
 
 class DecrypterScene(CrypterScene):
     
@@ -57,13 +56,13 @@ class DecrypterScene(CrypterScene):
     
     def get_result_tuple(self):
         goal_code = [color for color in self.code_given_in_colors]
-        code = [ViewSettings.RGB_TO_COLORS[stone.color] for stone in self.current_combination_stones]
+        code = [RGB_TO_COLORS[stone.color] for stone in self.current_combination_stones]
         return self.evaluate(code, goal_code)
                     
     
     def _handle_clicked_color_stone(self, clicked_stone):
         if Settings.DEBUG_LEVEL >= 1:
-            print 'clicked colored stone: ' + str((clicked_stone, ViewSettings.RGB_TO_COLORS[clicked_stone.color]))
+            print 'clicked colored stone: ' + str((clicked_stone, RGB_TO_COLORS[clicked_stone.color]))
             
         self.selected_combination_stone.set_color(clicked_stone.color)
 

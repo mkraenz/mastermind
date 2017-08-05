@@ -4,9 +4,8 @@ Created on 02.08.2017
 @author: Mirco
 '''
 import pygame
-from settings import ViewSettings
 from settings.ViewSettings import COLORS_TO_RGB
-from view.IScene import IScene
+from gamemanagement.IScene import IScene
 
 class GameOverScene(IScene):
     
@@ -14,7 +13,7 @@ class GameOverScene(IScene):
         self.font = pygame.font.SysFont('Arial', 50)
 
     def render(self, surface):
-        surface.fill(ViewSettings.COLORS_TO_RGB['white'])
+        surface.fill(COLORS_TO_RGB['white'])
         self.draw_centered_text('Game Over. Better try again.', 200, surface)
         self.draw_centered_text('Click to return to title screen.', 400, surface)
 

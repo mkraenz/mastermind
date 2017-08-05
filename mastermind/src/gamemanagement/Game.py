@@ -7,7 +7,7 @@ Created on 28.07.2017
 import pygame
 from settings.ViewSettings import COLORS_TO_RGB
 from settings import ViewSettings
-from view.SceneManager import SceneManager
+from gamemanagement.SceneManager import SceneManager
 import sys
 from pygame.constants import VIDEORESIZE
 

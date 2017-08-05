@@ -5,12 +5,12 @@ Created on 29.07.2017
 '''
 import pygame
 from settings import ViewSettings
-from view.IScene import IScene
+from gamemanagement.IScene import IScene
 from settings.ViewSettings import COLORS_TO_RGB
-from view.EncrypterScene import EncrypterScene
 from settings import Settings
-from view.DecrypterScene import DecrypterScene
-from view.AutoCodeCreater import AutoCodeCreater
+from gamemanagement.AutoCodeCreater import AutoCodeCreater
+from ingame.EncrypterScene import EncrypterScene
+from ingame.DecrypterScene import DecrypterScene
 
 class TitleScene(IScene):
 

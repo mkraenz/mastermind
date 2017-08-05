@@ -3,7 +3,7 @@ Created on 02.08.2017
 
 @author: Mirco
 '''
-from view.IScene import IScene
+from gamemanagement.IScene import IScene
 from settings.ViewSettings import COLORS_TO_RGB
 from settings import ViewSettings
 import pygame
