@@ -43,10 +43,8 @@ class DecrypterScene(CrypterScene):
                     print(self.results_tuples[current_round - 1])
                 
                 if self.check_is_won(self.results_tuples[current_round - 1]):
-                    # TODO: init winning scene (good job screen + stats + on Return goto EncrypterScene)
                     self.manager.go_to(WinScene())
                 elif self.check_is_lost(current_round):
-                    # TODO: init game over scene (game over text + on Return goto EncrypterScene)
                     self.manager.go_to(GameOverScene())
                 else:  # game continues
                     self.current_combination_stones = self.combinations_matrix[current_round]
