@@ -9,6 +9,8 @@ from view.IScene import IScene
 from view.ViewSettings import COLORS_TO_RGB
 from view.EncrypterScene import EncrypterScene
 from util import Settings
+from view.DecrypterScene import DecrypterScene
+from view.AutoCodeCreater import AutoCodeCreater
 
 class TitleScene(IScene):
 
@@ -66,7 +68,10 @@ class TitleScene(IScene):
                 pos = pygame.mouse.get_pos()
                 
                 if self.start_singleplayer_game_text_rect.collidepoint(pos):
-                    self.manager.go_to(EncrypterScene([], [])) #TODO: autocreate stuff
+                    code_given_in_colors = AutoCodeCreater().get_code()
+                    if Settings.DEBUG_LEVEL >= 1:
+                        print(code_given_in_colors)
+                    self.manager.go_to(DecrypterScene([], code_given_in_colors)) #TODO: autocreate stuff
                     
                 elif self.start_multiplayer_game_text_rect.collidepoint(pos):
                     self.manager.go_to(EncrypterScene([], []))

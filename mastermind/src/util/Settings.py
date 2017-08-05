@@ -21,4 +21,4 @@ ROUND_NUMBER = 4
 
 DEBUG_LEVEL = 2
 
-
+NUMBERS_TO_COLORS = {v: k for k, v in COLORS_TO_NUMBERS.iteritems()}
